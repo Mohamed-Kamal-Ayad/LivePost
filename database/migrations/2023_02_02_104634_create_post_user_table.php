@@ -12,14 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->json('body')->nullable();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('post_id');
+        Schema::create('post_user', function (Blueprint $table) {
+            $table->foreignId('user_id')->index()->constrained();
+            $table->foreignId('post_id')->index();
             $table->foreign('post_id')->on('posts')->references('id')->cascadeOnDelete();
-            //it's same as constrained!!
-            $table->timestamps();
+            $table->primary(['post_id', 'user_id']);
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('post_user');
     }
 };
