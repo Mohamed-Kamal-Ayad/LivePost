@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::middleware([
-    'auth',
+    //'auth',
 ])
-    ->prefix('kim')
+    ->prefix('livepost')
     ->group(function () {
         Route::apiResource('posts', PostController::class);
     });
