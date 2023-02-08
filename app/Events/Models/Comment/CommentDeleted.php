@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events\Models\User;
+namespace App\Events\Models\Comment;
 
-use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,19 +11,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserUpdated
+class CommentDeleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $user;
+    protected $comment;
+
     /**
      * Create a new event instance.
-     *
+     * @param Comment $model
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct( $comment )
     {
-        $this->user = $user;
+        $this->comment = $comment;
     }
 
     /**

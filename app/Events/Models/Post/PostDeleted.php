@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events\Models\User;
+namespace App\Events\Models\Post;
 
-use App\Models\User;
+use App\Models\Post;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,19 +11,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserUpdated
+class PostDeleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $user;
+    protected $post;
+
     /**
      * Create a new event instance.
-     *
+     * @param Post $model
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct( $post )
     {
-        $this->user = $user;
+        $this->post = $post;
     }
 
     /**
