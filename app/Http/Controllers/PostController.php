@@ -34,7 +34,7 @@ class PostController extends Controller
      * @param \App\Http\Requests\StorePostRequest $request
      * @return PostResource
      */
-    public function store(Request $request, PostRepository $repsitory)
+    public function store(StorePostRequest $request, PostRepository $repsitory)
     {
         $created = $repsitory->create($request->only([
             'title',
@@ -64,7 +64,7 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return PostResource | JsonResponse
      */
-    public function update(Request $request, Post $post, PostRepository $repository)
+    public function update(UpdatePostRequest $request, Post $post, PostRepository $repository)
     {
         //$post->update($request->only(['title', 'body'])); //same thing
 
