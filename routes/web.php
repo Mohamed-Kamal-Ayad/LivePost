@@ -22,3 +22,17 @@ Route::get('/testmail', function () {
     \Illuminate\Support\Facades\Mail::to($user)->send(new \App\Mail\WelcomeMail($user));
 return null;
 });
+Route::get('/playground', function () {
+    event(new \App\Events\PlaygroundEvent());
+    return null;
+});
+
+Route::get('/ws', function () {
+    return view('websocket');
+});
+
+Route::post('/chat-message', function (\Illuminate\Http\Request $request) {
+    $message = $request->get('message');
+    event(new \App\Events\ChatMessageEvent($message));
+    return null;
+});
