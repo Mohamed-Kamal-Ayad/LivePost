@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\FortifyServiceProvider;
 use App\Providers\GeolocationServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
@@ -183,6 +184,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         GeolocationServiceProvider::class,
+        FortifyServiceProvider::class,
 
         /*
          * Package Service Providers...

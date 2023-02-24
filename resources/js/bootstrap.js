@@ -1,5 +1,4 @@
-import _ from 'lodash';
-window._ = _;
+import 'bootstrap';
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -27,13 +26,9 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
-    //wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
+    forceTLS: false,
     wsHost: window.location.hostname,
-    //wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
     wsPort: 6001,
     encrypted: false,
-    //wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-    //forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-    forceTLS: false,
-    enabledTransports: ['ws', 'wss'],
+    enabledTransports: ['ws', 'wss']
 });
