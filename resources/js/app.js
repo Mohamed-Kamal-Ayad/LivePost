@@ -1,4 +1,4 @@
-import './bootstrap';
+import './bootstrap.js';
 import axios from 'axios';
 
 const form = document.getElementById('form');
@@ -115,6 +115,7 @@ document.getElementById('form-login').addEventListener('submit', function (event
     const password = inputPassword.value;
     login(email, password)
         .then(() => {
+            //updatePost();
             const channel = window.Echo.join('presence.chat.1');
             inputMessage.addEventListener('input', function () {
                 console.log('aa');
@@ -162,5 +163,23 @@ document.getElementById('form-login').addEventListener('submit', function (event
 
         })
 
-
 })
+
+function updatePost()
+{
+    const socket = new WebSocket(`ws://${window.location.hostname}:6001/socket/update-post?appKey=${import.meta.env.VITE_PUSHER_APP_KEY}`);
+    socket.onopen = function (event) {
+        console.log('opened!!');
+        socket.send(JSON.stringify({
+            id : 1,
+            payload: {
+                title: 'abc123',
+            }
+        }));
+
+        socket.onmessage = function (event)
+        {
+            console.log(event);
+        }
+    }
+}

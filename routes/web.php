@@ -1,5 +1,13 @@
 <?php
 
+use App\Events\ChatMessageEvent;
+use App\Events\PlaygroundEvent;
+use App\Mail\WelcomeMail;
+use App\Models\User;
+use App\Websockets\SocketHandler\UpdatePostSocketHandler;
+use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,12 +26,12 @@ Route::get('/', function () {
 });
 
 Route::get('/testmail', function () {
-    $user = \App\Models\User::factory()->make();
-    \Illuminate\Support\Facades\Mail::to($user)->send(new \App\Mail\WelcomeMail($user));
+    $user = User::factory()->make();
+    Mail::to($user)->send(new WelcomeMail($user));
 return null;
 });
 Route::get('/playground', function () {
-    event(new \App\Events\PlaygroundEvent());
+    event(new PlaygroundEvent());
     return null;
 });
 
@@ -31,8 +39,10 @@ Route::get('/ws', function () {
     return view('websocket');
 });
 
-Route::post('/chat-message', function (\Illuminate\Http\Request $request) {
+Route::post('/chat-message', function (Request $request) {
     $message = $request->get('message');
-    event(new \App\Events\ChatMessageEvent($message, Auth::user()));
+    event(new ChatMessageEvent($message, Auth::user()));
     return null;
 });
+
+WebSocketsRouter::webSocket('/socket/update-post', UpdatePostSocketHandler::class);
